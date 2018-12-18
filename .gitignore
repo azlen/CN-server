@@ -1,3 +1,4 @@
 data/makemeahanzi/*
 data/tatoeba/*
 **/.DS_Store
+node_modules/*
