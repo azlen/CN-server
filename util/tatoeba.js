@@ -1,12 +1,14 @@
-var fs = require('fs');
-var parse = require('csv-parse');
+let readLines = require('n-readlines');
 
-fs.readFile('./data/tatoeba/sentences.csv', function (err, data) {
-	parse(data, {}, function(err, rows) {
-		if (err) {
-			throw err;
-		} else {
-			console.log(rows[0]);
-		}
-	})
-})
+let data = (function() {
+	let out = {};
+	let line, lineIterator = new readLines('./data/makemeahanzi/dictionary.txt');
+
+	while (line = lineIterator.next()) {
+		let entry = JSON.parse(line);
+
+		out[entry.character] = entry;
+	}
+
+	return out;
+})();
