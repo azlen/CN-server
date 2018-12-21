@@ -14,7 +14,7 @@ hanzi.start();
 module.exports = function(app) {
 
 	app.get("/", function(req, res) {
-		let character = '你';
+		let character = req.query.word;
 		let d = hanzi.definitionLookup(character);
 
 		let data = {
