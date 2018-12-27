@@ -1,13 +1,32 @@
 let readLines = require('n-readlines');
 
-let data = (function() {
+let sentences = (function() {
 	let out = {};
-	let line, lineIterator = new readLines('./data/makemeahanzi/dictionary.txt');
+	let line, lineIterator = new readLines('./data/tatoeba/sentences.txt');
 
 	while (line = lineIterator.next()) {
-		let entry = JSON.parse(line);
+		let [index, lang, sentence] = line.match(/(\d+) (\w+) (.*)/);
 
-		out[entry.character] = entry;
+		if (lang === 'cmn' || lang === 'eng') {
+			out[index] = [lang, sentence];
+		}
+		out[index] = sentence
+	}
+
+	return out;
+})();
+
+sentences = (function() {
+	let out = {};
+	let line, lineIterator = new readLines('./data/tatoeba/links.txt');
+
+	while (line = lineIterator.next()) {
+		let [index, lang, sentence] = line.match(/(\d+) (\w+) (.*)/);
+
+		if (lang === 'cmn' || lang === 'eng') {
+			out[index] = [lang, sentence];
+		}
+		out[index] = sentence
 	}
 
 	return out;
